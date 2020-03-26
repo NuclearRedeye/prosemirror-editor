@@ -9,6 +9,9 @@ export const boxedTextExample = `
 <bold>8</bold>:e48498. doi: 
 <ext-link ext-link-type="uri" xlink:href="http://doi.org/10.7554/eLife.48498">10.7554/eLife.48498</ext-link>
 </p>
+<p>
+Rendering a boxed-text element using prosemirror.
+</p>
 </boxed-text>
 `;
 
