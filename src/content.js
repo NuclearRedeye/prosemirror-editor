@@ -1,7 +1,7 @@
 const parser = new DOMParser();
 
 export const boxedTextExample = `
-<boxed-text>
+<boxed-text xmlns:xlink="http://www.w3.org/1999/xlink">
 <p>
 <bold>Related research article</bold> Lee TW, David HS, Engstrom AK, Carpenter BS, Katz DJ. 2019. Repressive H3K9me2 protects lifespan against the transgenerational burden of COMPASS activity in&#x00A0;
 <italic>C. elegans</italic>. 

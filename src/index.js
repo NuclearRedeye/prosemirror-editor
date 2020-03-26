@@ -1,7 +1,7 @@
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Schema, DOMParser } from 'prosemirror-model';
-import { schema } from './schema-basic.js';
+import { schema } from './schema-jats.js';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { defaultExampleDOM, boxedTextExampleDOM } from './content.js';
@@ -15,7 +15,7 @@ const mySchema = new Schema({
 
 window.view = new EditorView(document.body, {
   state: EditorState.create({
-    doc: DOMParser.fromSchema(mySchema).parse(defaultExampleDOM),
+    doc: DOMParser.fromSchema(mySchema).parse(boxedTextExampleDOM),
     plugins: exampleSetup({ schema: mySchema })
   })
 });
