@@ -2,6 +2,7 @@
   --t-half-spacing: 10px; /* Half of the default spacing */
   --t-default-spacing: 20px; /* Default padding to create some whitespace, e.g. in figure */
   --t-default-box-shadow: 0 0 0 0.75pt #d1d1d1, 0 0 3pt 0.75pt #ccc;
+  --t-action-color: #2e72ea;
 }
 
 body {
@@ -11,6 +12,11 @@ body {
 
 img {
   width: 100%;
+}
+
+a {
+  color: var(--t-action-color);
+  text-decoration: none;
 }
 
 .sc-card {
