@@ -23,7 +23,7 @@ export const nodes = {
   },
 
   body: {
-    content: 'block+',
+    content: 'block*',
     parseDOM: [{ tag: 'body' }],
     toDOM() {
       return ['div', 0];
@@ -31,11 +31,11 @@ export const nodes = {
   },
 
   boxed_text: {
-    content: 'inline*',
+    content: 'paragraph*',
     group: 'block',
     parseDOM: [{ tag: 'boxed-text' }],
     toDOM() {
-      return ['div', { style: 'border: solid black 1px' }, 0];
+      return ['div', { class: 'sc-box' }, 0];
     }
   },
 

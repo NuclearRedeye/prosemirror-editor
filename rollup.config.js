@@ -28,6 +28,10 @@ module.exports = {
           dest: 'dist/'
         },
         {
+          src: 'src/index.css',
+          dest: 'dist/'
+        },
+        {
           src: './node_modules/prosemirror-example-setup/style/style.css',
           dest: 'dist/'
         },
