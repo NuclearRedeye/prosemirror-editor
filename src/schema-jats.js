@@ -175,6 +175,32 @@ export const nodes = {
       let { href } = node.attrs;
       return ['a', { href }, 0];
     }
+  },
+
+  //<xref ref-type="bibr" rid="bib5">Katz et al., 2009</xref>
+  xref: {
+    inline: true,
+    content: 'inline*',
+    attrs: {
+      type: { default: 'bibr' },
+      href: { default: '#' }
+    },
+    group: 'inline',
+    parseDOM: [
+      {
+        tag: 'xref',
+        getAttrs(dom) {
+          return {
+            type: dom.getAttribute('ref-type'),
+            href: dom.getAttribute('rid')
+          };
+        }
+      }
+    ],
+    toDOM(node) {
+      let { href } = node.attrs;
+      return ['a', { href }, 0];
+    }
   }
 };
 
