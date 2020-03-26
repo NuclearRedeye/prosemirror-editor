@@ -30,6 +30,10 @@ module.exports = {
         {
           src: './node_modules/prosemirror-example-setup/style/style.css',
           dest: 'dist/'
+        },
+        {
+          src: './node_modules/prosemirror-menu/style/menu.css',
+          dest: 'dist/'
         }
       ]
     })
