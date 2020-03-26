@@ -1,7 +1,9 @@
 const parser = new DOMParser();
 
 export const boxedTextExample = `
-<boxed-text xmlns:xlink="http://www.w3.org/1999/xlink">
+<article xmlns:xlink="http://www.w3.org/1999/xlink">
+<body>
+<boxed-text>
 <p>
 <bold>Related research article</bold> Lee TW, David HS, Engstrom AK, Carpenter BS, Katz DJ. 2019. Repressive H3K9me2 protects lifespan against the transgenerational burden of COMPASS activity in&#x00A0;
 <italic>C. elegans</italic>. 
@@ -13,6 +15,8 @@ export const boxedTextExample = `
 Rendering a boxed-text element using prosemirror.
 </p>
 </boxed-text>
+</body>
+</article>
 `;
 
 export const boxedTextExampleDOM = parser.parseFromString(boxedTextExample, 'text/xml');

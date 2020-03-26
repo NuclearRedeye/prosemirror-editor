@@ -14,6 +14,31 @@ export const nodes = {
     content: 'block+'
   },
 
+  article: {
+    content: 'block+',
+    parseDOM: [{ tag: 'article' }],
+    toDOM() {
+      return ['div', 0];
+    }
+  },
+
+  body: {
+    content: 'block+',
+    parseDOM: [{ tag: 'body' }],
+    toDOM() {
+      return ['div', 0];
+    }
+  },
+
+  boxed_text: {
+    content: 'inline*',
+    group: 'block',
+    parseDOM: [{ tag: 'boxed-text' }],
+    toDOM() {
+      return ['div', { style: 'border: solid black 1px' }, 0];
+    }
+  },
+
   // :: NodeSpec A plain paragraph textblock. Represented in the DOM
   // as a `<p>` element.
   paragraph: {
@@ -32,7 +57,7 @@ export const nodes = {
     defining: true,
     parseDOM: [{ tag: 'blockquote' }],
     toDOM() {
-      return blockquoteDOM;
+      return ['div' + node.attrs.level, 0];
     }
   },
 
