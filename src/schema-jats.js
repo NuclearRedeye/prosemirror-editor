@@ -15,7 +15,7 @@ export const nodes = {
   },
 
   article: {
-    content: 'block+',
+    content: 'body*',
     parseDOM: [{ tag: 'article' }],
     toDOM() {
       return ['div', 0];
@@ -35,7 +35,7 @@ export const nodes = {
     group: 'block',
     parseDOM: [{ tag: 'boxed-text' }],
     toDOM() {
-      return ['div', { class: 'sc-box' }, 0];
+      return ['div', { class: 'sc-card' }, 0];
     }
   },
 
@@ -200,6 +200,102 @@ export const nodes = {
     toDOM(node) {
       let { href } = node.attrs;
       return ['a', { href }, 0];
+    }
+  },
+
+  figure: {
+    content: 'label* caption* graphic* attrib*',
+    group: 'block',
+    attrs: {
+      id: {},
+      position: { default: 'float' }
+    },
+    parseDOM: [
+      {
+        tag: 'fig',
+        getAttrs(dom) {
+          return {
+            id: dom.getAttribute('id'),
+            position: dom.getAttribute('position')
+          };
+        }
+      }
+    ],
+    toDOM(node) {
+      return ['div', { class: 'sc-card' }, 0];
+    }
+  },
+
+  label: {
+    content: 'inline*',
+    group: 'figure',
+    selectable: false,
+    parseDOM: [
+      {
+        tag: 'label'
+      }
+    ],
+    toDOM(node) {
+      return ['h2', 0];
+    }
+  },
+
+  caption: {
+    content: 'title* paragraph*',
+    group: 'figure',
+    parseDOM: [
+      {
+        tag: 'caption'
+      }
+    ],
+    toDOM(node) {
+      return ['div', 0];
+    }
+  },
+
+  title: {
+    content: 'text*',
+    parseDOM: [
+      {
+        tag: 'title'
+      }
+    ],
+    toDOM(node) {
+      return ['h3', 0];
+    }
+  },
+
+  graphic: {
+    attrs: {
+      src: {}
+    },
+    group: 'figure',
+    draggable: true,
+    parseDOM: [
+      {
+        tag: 'graphic',
+        getAttrs(dom) {
+          return {
+            src: dom.getAttribute('xlink:href')
+          };
+        }
+      }
+    ],
+    toDOM(node) {
+      let { src } = node.attrs;
+      return ['img', { src }];
+    }
+  },
+
+  attrib: {
+    content: 'text*',
+    parseDOM: [
+      {
+        tag: 'attrib'
+      }
+    ],
+    toDOM(node) {
+      return ['h3', 0];
     }
   }
 };

@@ -9,7 +9,11 @@ body {
   font-family: 'Inter UI', system-ui, sans-serif;
 }
 
-.sc-box {
+img {
+  width: 100%;
+}
+
+.sc-card {
   box-shadow: var(--t-default-box-shadow);
   margin: var(--t-half-spacing) 0;
   font-size: var(--t-small-font-size);
