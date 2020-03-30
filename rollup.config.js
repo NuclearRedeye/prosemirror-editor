@@ -24,15 +24,7 @@ module.exports = {
     copy({
       targets: [
         {
-          src: 'src/index.html',
-          dest: 'dist/'
-        },
-        {
-          src: 'src/index.css',
-          dest: 'dist/'
-        },
-        {
-          src: 'src/*.jpg',
+          src: ['src/index.html', 'src/index.css', 'src/*.jpg'],
           dest: 'dist/'
         },
         {
