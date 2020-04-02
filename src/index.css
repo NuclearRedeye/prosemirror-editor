@@ -141,6 +141,10 @@ body {
   margin-left: 20px;
 }
 
+.change {
+  box-shadow: var(--t-default-box-shadow);
+}
+
 img {
   width: 100%;
 }
