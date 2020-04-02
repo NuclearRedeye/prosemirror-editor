@@ -10,6 +10,17 @@ let mySchema;
 let myState;
 let myView;
 
+// Handler for when new transactions, e.g. changes, are dispatched from the view. By handling transactions here myself,
+// I can decide on what I want to do. Here, I just simply apply the transaction to the state, and then update the view
+// with the new state.
+// NOTE: that 'this' is bound to the view that the transaction was raised on, hence...
+//       myView.updateState() === this.updateState()
+function onTransaction(transaction) {
+  console.log('onTransaction() Called');
+  myState = myState.apply(transaction);
+  this.updateState(myState);
+}
+
 // 1. Create a schema, in this case I've modified the demo schema to support more JATS elements, and here I essentially
 //    create a new schema and merge in support for list nodes from the schema-list plugin. This gives me support for ul
 //    in the main body text.
@@ -27,5 +38,6 @@ myState = new EditorState.create({
 
 // 3. Create a new view, and mount it to the document body.
 myView = new EditorView(document.body, {
-  state: myState
+  state: myState,
+  dispatchTransaction: onTransaction
 });
