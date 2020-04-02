@@ -122,12 +122,23 @@
   --t-large-layout-width: 960px;
   --t-separator-color: rgba(0, 0, 0, 0.05);
 }
+
 body {
-  width: 800px;
+  display: flex;
+  flex-direction: row;
   line-height: var(--t-default-line-height);
   height: 100%;
   position: relative;
   font-family: var(--t-interface-font);
+}
+
+.editor {
+  width: 800px;
+}
+
+.sidebar {
+  width: 200px;
+  margin-left: 20px;
 }
 
 img {
