@@ -4,7 +4,9 @@ import { Schema, DOMParser } from 'prosemirror-model';
 import { schema } from './schema-jats.js';
 import { addListNodes } from 'prosemirror-schema-list';
 import { exampleSetup } from 'prosemirror-example-setup';
-import { boxedTextExampleDOM } from './content.js';
+import { boxedTextExample, boxedTextExampleDOM } from './content.js';
+
+import { trackChangesPlugin } from './track-changes-plugin/index.js';
 
 let mySchema;
 let myState;
@@ -18,7 +20,13 @@ let myView;
 function onTransaction(transaction) {
   console.log('onTransaction() Called');
   myState = myState.apply(transaction);
-  this.updateState(myState);
+  myView.updateState(myState);
+}
+
+// Handler for when a user saves changes. So the intent here is that when they save/commit their changes they are stored
+// as a changeSet.
+function onPublish(event) {
+  onTransaction(myState.tr.setMeta(trackChangesPlugin, 'Hello from onSave()'));
 }
 
 // 1. Create a schema, in this case I've modified the demo schema to support more JATS elements, and here I essentially
@@ -33,11 +41,14 @@ mySchema = new Schema({
 myState = new EditorState.create({
   doc: DOMParser.fromSchema(mySchema).parse(boxedTextExampleDOM),
   schema: mySchema,
-  plugins: [...exampleSetup({ schema: mySchema })]
+  plugins: [...exampleSetup({ schema: mySchema }), trackChangesPlugin]
 });
 
 // 3. Create a new view, and mount it to the document body.
-myView = new EditorView(document.body, {
+myView = new EditorView(document.getElementById('editor'), {
   state: myState,
   dispatchTransaction: onTransaction
 });
+
+const publish = document.getElementById('publish');
+publish.addEventListener('click', onPublish);
