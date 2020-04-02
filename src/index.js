@@ -55,13 +55,11 @@ function renderCommits(state, dispatch) {
     let node = createElement(
       'li',
       { class: 'change' },
-      createElement(
-        'span',
-        { class: 'commit-time' },
-        commit.time.getHours() + ':' + (commit.time.getMinutes() < 10 ? '0' : '') + commit.time.getMinutes()
-      ),
-      '\u00a0 ' + commit.message + '\u00a0 ',
-      createElement('button', { class: 'commit-revert' }, 'revert')
+      createElement('img', { class: 'avatar', src: 'avatar.jpg' }),
+      createElement('div', { class: 'date' }, commit.time.toLocaleString('en-GB', { timeZone: 'UTC' })),
+      createElement('div', { class: 'user' }, commit.message),
+      createElement('div', { class: 'body' }, 'Something about the number of edits, and why, or whatever.'),
+      createElement('button', { class: 'revert' }, 'revert')
     );
     node.lastChild.addEventListener('click', () => revertCommit(commit));
     // node.addEventListener('mouseover', (e) => {
@@ -101,7 +99,7 @@ function revertCommit(commit) {
     if (result.doc) remap.appendMap(remapped.getMap(), i);
   }
   // Add a commit message and dispatch.
-  if (tr.docChanged) onTransaction(tr.setMeta(trackPlugin, `Revert '${commit.message}'`));
+  if (tr.docChanged) onTransaction(tr.setMeta(trackPlugin, userId));
 }
 
 // 1. Create a schema, in this case I've modified the demo schema to support more JATS elements, and here I essentially
@@ -127,3 +125,7 @@ myView = new EditorView(document.getElementById('editor'), {
 
 const publish = document.getElementById('publish');
 publish.addEventListener('click', onPublish);
+
+// Insert some dummy data
+onTransaction(myState.tr.insertText('Type something, and then commit it.'));
+onTransaction(myState.tr.setMeta(trackPlugin, userId));
