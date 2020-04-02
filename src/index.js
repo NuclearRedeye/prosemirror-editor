@@ -8,6 +8,7 @@ import { exampleSetup } from 'prosemirror-example-setup';
 import { boxedTextExample, boxedTextExampleDOM } from './content.js';
 
 import { trackPlugin } from './track-changes-plugin/index.js';
+import { highlightPlugin } from './highlight-plugin/index.js';
 
 let mySchema;
 let myState;
@@ -62,12 +63,12 @@ function renderCommits(state, dispatch) {
       createElement('button', { class: 'revert' }, 'revert')
     );
     node.lastChild.addEventListener('click', () => revertCommit(commit));
-    // node.addEventListener('mouseover', (e) => {
-    //   if (!node.contains(e.relatedTarget)) dispatch(state.tr.setMeta(highlightPlugin, { add: commit }));
-    // });
-    // node.addEventListener('mouseout', (e) => {
-    //   if (!node.contains(e.relatedTarget)) dispatch(state.tr.setMeta(highlightPlugin, { clear: commit }));
-    // });
+    node.addEventListener('mouseover', (e) => {
+      if (!node.contains(e.relatedTarget)) onTransaction(state.tr.setMeta(highlightPlugin, { add: commit }));
+    });
+    node.addEventListener('mouseout', (e) => {
+      if (!node.contains(e.relatedTarget)) onTransaction(state.tr.setMeta(highlightPlugin, { clear: commit }));
+    });
     out.appendChild(node);
   });
 }
@@ -114,7 +115,7 @@ mySchema = new Schema({
 myState = new EditorState.create({
   doc: DOMParser.fromSchema(mySchema).parse(boxedTextExampleDOM),
   schema: mySchema,
-  plugins: [...exampleSetup({ schema: mySchema }), trackPlugin]
+  plugins: [...exampleSetup({ schema: mySchema }), trackPlugin, highlightPlugin]
 });
 
 // 3. Create a new view, and mount it to the document body.

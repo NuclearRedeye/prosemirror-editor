@@ -147,6 +147,10 @@ body {
   box-shadow: var(--t-default-box-shadow);
 }
 
+.highlight {
+  background: rgb(145, 189, 240);
+}
+
 .sidebar {
   grid-column-start: 4;
   grid-column-end: 5;
