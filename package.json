@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "true",
+    "distclean": "rimraf ./dist ./node_modules",
+    "prebuild": "rimraf ./dist",
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "prepare": "npm run build",
     "debug": "serve ./dist/"
   },
   "author": "NuclearRedeye",
@@ -21,6 +22,7 @@
     "prosemirror-view": "^1.14.5"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "rollup": "^2.1.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-copy": "^3.3.0",
