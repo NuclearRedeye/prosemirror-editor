@@ -135,6 +135,26 @@ body {
   padding: 0px;
 }
 
+.toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: white;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  height: 40px;
+  box-shadow: var(--t-default-box-shadow);
+}
+
+.toolbar > button {
+  color: #2e72ea;
+  border-radius: 5px;
+  height: fit-content;
+  align-self: center;
+  font-weight: bold;
+  font-size: small;
+  margin-right: 20px;
+}
+
 .editor {
   grid-column-start: 1;
   grid-column-end: 4;
@@ -201,6 +221,12 @@ body {
 }
 
 .change > .revert {
+  color: #2e72ea;
+  border-radius: 5px;
+  height: fit-content;
+  align-self: center;
+  font-weight: bold;
+  font-size: small;
   grid-row-start: 1;
   grid-row-end: 3;
   grid-column-start: 7;

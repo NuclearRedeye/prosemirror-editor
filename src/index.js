@@ -25,12 +25,18 @@ function onTransaction(transaction) {
   myState = myState.apply(transaction);
   myView.updateState(myState);
   renderCommits(myState, onTransaction);
+  setDisabled(myState);
 }
 
 // Handler for when a user saves changes. So the intent here is that when they save/commit their changes they are stored
 // as a changeSet, in this case using the 'trackPlugin'.
 function onPublish() {
   onTransaction(myState.tr.setMeta(trackPlugin, userId));
+}
+
+function setDisabled(state) {
+  let button = document.querySelector('#publish');
+  button.disabled = trackPlugin.getState(state).uncommittedSteps.length == 0;
 }
 
 function createElement(name, attrs, ...children) {
@@ -60,7 +66,7 @@ function renderCommits(state, dispatch) {
       createElement('div', { class: 'date' }, commit.time.toLocaleString('en-GB', { timeZone: 'UTC' })),
       createElement('div', { class: 'user' }, commit.message),
       createElement('div', { class: 'body' }, 'Something about the number of edits, and why, or whatever.'),
-      createElement('button', { class: 'revert' }, 'revert')
+      createElement('button', { class: 'revert' }, 'Revert')
     );
     node.lastChild.addEventListener('click', () => revertCommit(commit));
     node.addEventListener('mouseover', (e) => {
@@ -126,7 +132,3 @@ myView = new EditorView(document.getElementById('editor'), {
 
 const publish = document.getElementById('publish');
 publish.addEventListener('click', onPublish);
-
-// Insert some dummy data
-onTransaction(myState.tr.insertText('Type something, and then commit it.'));
-onTransaction(myState.tr.setMeta(trackPlugin, userId));
